@@ -1,12 +1,12 @@
 // Estado del Juego
 let players = [];
 let impostorIndex = -1;
-let currentWord = "";
+let currentWordObj = null; // Guardará el objeto completo {name, image}
 let currentCategory = "";
-let currentClue = ""; // Almacenará la pista de la categoría
+let currentClue = "";
 let currentRevealPlayerIndex = 0;
 let timerInterval = null;
-let timeLeft = 300; // 5 minutos por defecto
+let timeLeft = 300;
 
 // Elementos del DOM
 const screens = {
@@ -38,6 +38,8 @@ const btnCancelVote = document.getElementById('btn-cancel-vote');
 const gameCategoryInfo = document.getElementById('game-category-info');
 const btnRestart = document.getElementById('btn-restart');
 const categorySelect = document.getElementById('category-select');
+const displayImage = document.getElementById('display-image');
+const wordImageContainer = document.getElementById('word-image-container');
 
 // Llenar selector de categorías
 function populateCategories() {
@@ -102,10 +104,9 @@ function initGame() {
         category = gameData.categories[parseInt(selectedVal)];
     }
 
-    const word = category.words[Math.floor(Math.random() * category.words.length)];
+    currentWordObj = category.words[Math.floor(Math.random() * category.words.length)];
 
     currentCategory = category.name;
-    currentWord = word;
     currentClue = category.clue; // Guardamos la pista de words.js
 
     // Seleccionar Impostor
@@ -128,14 +129,15 @@ function setupReveal() {
 
     if (isImpostor) {
         displayWord.textContent = "PISTA: " + currentClue.toUpperCase();
-        displayWord.style.color = "#ff0000"; // Rojo para alertar al impostor
-        displayWord.classList.remove('hidden');
+        displayWord.style.color = "#ff0000";
+        wordImageContainer.classList.add('hidden');
         impostorMsg.textContent = "¡ERES EL IMPOSTOR!";
         impostorMsg.classList.remove('hidden');
     } else {
-        displayWord.textContent = currentWord.toUpperCase();
-        displayWord.style.color = "#000000"; // Negro para jugadores normales
-        displayWord.classList.remove('hidden');
+        displayWord.textContent = currentWordObj.name.toUpperCase();
+        displayWord.style.color = "#000000";
+        displayImage.src = currentWordObj.image;
+        wordImageContainer.classList.remove('hidden');
         impostorMsg.classList.add('hidden');
     }
 
