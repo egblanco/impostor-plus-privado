@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impostor | El Juego de Deducción</title>
+    <meta name="description"
+        content="Un juego premium de deducción social para jugar con amigos. ¿Quién es el impostor?">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="background-animate"></div>
+
+    <main id="app">
+        <!-- Pantalla Inicio -->
+        <section id="screen-start" class="screen active">
+            <div class="hero">
+                <h1 class="glitch" data-text="IMPOSTOR">IMPOSTOR</h1>
+                <p class="subtitle">Deducción. Engaño. Supervivencia.</p>
+            </div>
+            <div class="card glass">
+                <div class="input-group">
+                    <label for="player-input">Añadir Jugadores</label>
+                    <div class="flex-row">
+                        <input type="text" id="player-input" placeholder="Nombre del jugador..." autocomplete="off">
+                        <button id="btn-add-player" class="btn-secondary">+</button>
+                    </div>
+                </div>
+                <ul id="player-list" class="scrollable"></ul>
+                <div id="game-options" class="hidden">
+                    <button id="btn-start-game" class="btn-primary">INICIAR PARTIDA</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pantalla Revelar Roles -->
+        <section id="screen-reveal" class="screen">
+            <div class="status-bar">
+                <span id="reveal-progress">Jugador 1 de 5</span>
+            </div>
+            <div class="reveal-container">
+                <h2 id="current-player-name">Nombre</h2>
+                <div id="role-card" class="card-reveal">
+                    <div class="card-front">
+                        <span style="font-size: 2rem; color: #000; font-weight: 900;">TOCA PARA VER</span>
+                    </div>
+                    <div class="card-back">
+                        <p class="category-label">Categoría: <span id="display-category">---</span></p>
+                        <h3 id="display-word">PALABRA</h3>
+                        <p id="impostor-msg" class="hidden text-danger">¡ERES EL IMPOSTOR!</p>
+                        <p class="instruction">No dejes que nadie vea tu pantalla</p>
+                    </div>
+                </div>
+                <button id="btn-next-reveal" class="btn-primary hidden">SIGUIENTE</button>
+            </div>
+        </section>
+
+        <!-- Pantalla de Juego -->
+        <section id="screen-game" class="screen">
+            <div class="hero-mini">
+                <h2>¡QUE COMIENCE EL JUEGO!</h2>
+                <p>Categoría: <span id="game-category-info" class="highlight">---</span></p>
+            </div>
+            <div class="timer-container card glass">
+                <div id="timer-display">05:00</div>
+                <div class="timer-controls">
+                    <button id="btn-timer-toggle" class="btn-icon">▶</button>
+                    <button id="btn-go-vote" class="btn-primary" style="margin-left: 10px; padding: 10px 20px;">IR A
+                        VOTAR</button>
+                </div>
+            </div>
+            <div class="game-instructions card glass">
+                <h3>Instrucciones</h3>
+                <ul>
+                    <li>Cada jugador dará una pista sobre la palabra.</li>
+                    <li>El impostor debe fingir que sabe la palabra.</li>
+                    <li>Al final del tiempo, voten por quién creen que es el impostor.</li>
+                </ul>
+            </div>
+            <button id="btn-restart" class="btn-outline">NUEVA PARTIDA</button>
+        </section>
+
+        <!-- Pantalla de Votación -->
+        <section id="screen-vote" class="screen">
+            <div class="hero-mini">
+                <h2 class="text-danger">¿QUIÉN ES EL IMPOSTOR?</h2>
+                <p>Seleccionen al sospechoso...</p>
+            </div>
+            <div id="vote-list" class="card glass">
+                <!-- Se llenará dinámicamente -->
+            </div>
+            <button id="btn-cancel-vote" class="btn-outline">VOLVER AL TIEMPO</button>
+        </section>
+    </main>
+
+    <script src="words.js"></script>
+    <script src="game.js"></script>
+</body>
+
+</html>
