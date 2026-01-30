@@ -130,12 +130,12 @@ function setupReveal() {
     if (isImpostor) {
         displayWord.textContent = "PISTA: " + currentClue.toUpperCase();
         displayWord.style.color = "#ff0000";
+        displayWord.classList.remove('hidden');
         wordImageContainer.classList.add('hidden');
         impostorMsg.textContent = "¡ERES EL IMPOSTOR!";
         impostorMsg.classList.remove('hidden');
     } else {
-        displayWord.textContent = currentWordObj.name.toUpperCase();
-        displayWord.style.color = "#000000";
+        displayWord.classList.add('hidden'); // Ocultar el texto de la palabra
         displayImage.src = currentWordObj.image;
         wordImageContainer.classList.remove('hidden');
         impostorMsg.classList.add('hidden');
