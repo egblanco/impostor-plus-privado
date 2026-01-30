@@ -37,6 +37,18 @@ const voteList = document.getElementById('vote-list');
 const btnCancelVote = document.getElementById('btn-cancel-vote');
 const gameCategoryInfo = document.getElementById('game-category-info');
 const btnRestart = document.getElementById('btn-restart');
+const categorySelect = document.getElementById('category-select');
+
+// Llenar selector de categorías
+function populateCategories() {
+    gameData.categories.forEach((cat, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = cat.name;
+        categorySelect.appendChild(option);
+    });
+}
+populateCategories();
 
 // --- Lógica de Jugadores ---
 
@@ -80,8 +92,16 @@ function checkMinPlayers() {
 // --- Lógica del Juego ---
 
 function initGame() {
-    // Seleccionar categoría y palabra
-    const category = gameData.categories[Math.floor(Math.random() * gameData.categories.length)];
+    // Seleccionar categoría basada en el usuario o aleatoria
+    let category;
+    const selectedVal = categorySelect.value;
+
+    if (selectedVal === "random") {
+        category = gameData.categories[Math.floor(Math.random() * gameData.categories.length)];
+    } else {
+        category = gameData.categories[parseInt(selectedVal)];
+    }
+
     const word = category.words[Math.floor(Math.random() * category.words.length)];
 
     currentCategory = category.name;
